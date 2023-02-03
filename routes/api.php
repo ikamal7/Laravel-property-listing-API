@@ -1,6 +1,7 @@
 <?php
 
     use App\Http\Controllers\AuthController;
+    use App\Http\Controllers\BrokersController;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::get( 'brokers', [BrokersController::class, 'index']);
+Route::get( 'brokers/{broker}', [BrokersController::class, 'show']);
+
+
 //Protecting routes with Sanctum
 Route::group( ['middleware' => 'auth:sanctum'], function() {
+    Route::apiResource( 'brokers', BrokersController::class)->only( [
+        'store', 'update', 'destroy'
+        ]);
+
     Route::post('/logout', [AuthController::class, 'logout ']);
 });
