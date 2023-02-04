@@ -2,6 +2,7 @@
 
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\BrokersController;
+    use App\Http\Controllers\PropertiesController;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get( 'brokers', [BrokersController::class, 'index']);
 Route::get( 'brokers/{broker}', [BrokersController::class, 'show']);
 
+Route::apiResource( 'properties', PropertiesController::class);
 
 //Protecting routes with Sanctum
 Route::group( ['middleware' => 'auth:sanctum'], function() {
